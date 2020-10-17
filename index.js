@@ -55,7 +55,7 @@ client.connect(err => {
   })
 
   //GET all volunteers
-  app.get('/allVolunteers', (req, res) =>{
+  app.get('/allVolunteersData', (req, res) =>{
     volunteersCollection.find({})
     .toArray((err, documents) =>{
       res.send(documents)
@@ -90,6 +90,14 @@ client.connect(err => {
       res.status(401).send('Unauthorized access')
     }
   }) 
+
+  // GET allvolunteersMembers
+  app.get('/allVolunteersMembers', (req, res) =>{
+    volunteerMemberCollection.find({})
+    .toArray((err, documents) =>{
+      res.send(documents)
+    })
+  })
 
 });
 
