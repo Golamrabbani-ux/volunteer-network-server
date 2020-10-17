@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const app = express()
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors());
 
 
@@ -27,14 +28,14 @@ client.connect(err => {
   const volunteerMemberCollection = client.db("VolunteerNetwork").collection("volunteermembers");
   
   app.get('/', (req, res) =>{
-    res.send('Wellcome Backend')
+    res.send('Well come')
   })
   //POST
   app.post('/addVolunteer', (req, res) =>{
     const allvolunteers = req.body;
-    volunteersCollection.insertMany(allvolunteers)
+    volunteersCollection.insertOne(allvolunteers)
     .then(result =>{
-      res.send(result.insertedCount)
+      res.send(result.insertedCount > 0)
     })
   })
 
@@ -100,6 +101,5 @@ client.connect(err => {
   })
 
 });
-
 
 app.listen(4000, console.log('port 4000'))
