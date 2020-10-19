@@ -99,6 +99,14 @@ client.connect(err => {
       res.send(documents)
     })
   })
+  //GET search query
+  app.get('/search', (req, res) =>{
+      const title = req.query.title;
+      volunteersCollection.find({title: {$regex: title}})
+      .toArray((err, documents) =>{
+        res.send(documents)
+      })
+  })
 
 });
 
